@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -33,19 +35,46 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+item = {
+    'sword': Item('Sword', 'A cool sword'),
+    'grail': Item('Grail', 'THE GRAIL')
+}
+
+room['foyer'].items = item['sword']
+room['treasure'].items = item['grail']
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+# player = Player("Drake", room['outside'])
+
+name = input("Enter player name: ")
+room = room["outside"]
+player = Player(name, room)
 
 # Write a loop that:
-#
+
+
+valid_directions = ("n", "s", "e", "w")
 # * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+print(f"\nWelcome {player.name}.\n\nYou are currently in the {player.room.name}. {player.room.description}!")
+
+while True:
+    # * Waits for user input and decides what to do.
+    command = input(f"\nWhere would you like to go next?\n\n(N, S, E, W or Q to quit the game): ").lower()
+    answer = command.split(" ")
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    if command in valid_directions:
+        player.move(command)
+    # grabing item
+    elif command == "i":
+        print("\n{item for item in player.room.items}")
+    # If the user enters "q", quit the game.
+    elif command == "q":
+        print("See you next time")
+        break
+    else:
+        print("Please input N, S, E, W or Q to quit the game")
