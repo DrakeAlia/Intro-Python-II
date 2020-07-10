@@ -78,15 +78,18 @@ while True:
         player.print_items()
 
 
-    elif command.startswith('take'):
-        item = item[answer[1]]
-        player.add_item(item)
+    # elif command.startswith('take'):
+    elif answer[0] == 'take':
+        print(item['sword'])
+        print(item[answer[1]])
+        take = item[answer[1]]
+        player.add_item(take)
         player.print_items()
-        player.room.drop_item_in_room(item)
+        player.room.drop_item_in_room(take)
 
 
     elif command == "d":
-        if player.items == []:
+        if player.items == ():
             print("You have nothing in your inventory")
         else:
             print(f"\nYou have:")

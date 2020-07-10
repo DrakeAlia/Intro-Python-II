@@ -31,6 +31,7 @@ class Room:
         else:
             print(f"You are not carrying a {item} ")
 
+
 # Example from guided project 
 # Implement a class to hold room information. This should have name and
 # description attributes.
