@@ -26,11 +26,10 @@ class Player:
     def add_item(self, item):
         self.items.append(item)
 
-    def take_item(self, item):
+    def drop_item(self, item):
         if item in self.items:
-            item.on_take()
+            item.on_drop()
             self.items.remove(item)
-            self.add_item(item) 
 
     # trying to print out items:
     def print_items(self):

@@ -25,6 +25,11 @@ class Room:
             for i in self.items:
                 print(i)
 
+    def drop_item_in_room(self, item):
+        if item in self.items: 
+            self.items.remove(item)
+        else:
+            print(f"You are not carrying a {item} ")
 
 # Example from guided project 
 # Implement a class to hold room information. This should have name and

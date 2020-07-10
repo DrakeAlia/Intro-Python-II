@@ -64,7 +64,7 @@ print(f"\nWelcome {player.name}.\n\nYou are currently in the {player.room.name}.
 while True:
     # * Waits for user input and decides what to do.
     command = input(f"\nWhere would you like to go next?\n\n(N, S, E, W or Q to quit the game): ").lower()
-    answer = command.split(" ")
+    answer = command.split()
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     if command in valid_directions:
@@ -77,8 +77,16 @@ while True:
         print()
         player.print_items()
 
+
+    elif command.startswith('take'):
+        item = item[answer[1]]
+        player.add_item(item)
+        player.print_items()
+        player.room.drop_item_in_room(item)
+
+
     elif command == "d":
-        if player.items == None:
+        if player.items == []:
             print("You have nothing in your inventory")
         else:
             print(f"\nYou have:")
@@ -86,15 +94,13 @@ while True:
                 print(count, item)
             dropSomething = input("\nWould you like to drop something (y/n)?: ")
             if dropSomething == "y" or dropSomething == "yes" and len(player.items) >= int(item) -1:
-                item = input("\nInput the number of the items to drop: ")
-                if len(player.items) >= int(item) -1:
+                num = input("\nInput the number of the item to drop: ")
+                if len(player.items) >= int(num) -1:
                     try:
-                        player.room.items = player.items[int(item) - 1]
-                        item.on_drop()
-                        print(f"\nyou dropped it!\n")   
+                        player.drop_item(item) 
+                        player.room.add_item(item)
                     except:
                         print("You don't have that item to drop!")
-
 
     # If the user enters "q", quit the game.
     elif command == "q":
